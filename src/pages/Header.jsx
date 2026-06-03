@@ -5,7 +5,7 @@ const Header = () => {
 
   return (
     <>
-      <div className="wrapper">
+      <div className="">
         <nav className="nav-container">
           <div className="logo">
             <img src="assets/image/Techno_School_logo-removebg-preview.png" alt="Techno Logo" />
