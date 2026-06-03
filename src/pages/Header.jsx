@@ -18,7 +18,7 @@ const Header = () => {
             checked={menuOpen} 
             onChange={() => setMenuOpen(!menuOpen)} 
           />
-          <label htmlFor="menu-toggle" className="menu-icon">
+          <label htmlFor="menu-toggle" className="menu-icon text-dark">
             <span></span>
             <span></span>
             <span></span>
@@ -41,10 +41,7 @@ const Header = () => {
           </ul>
         </nav>
 
-        <div className="content">
-          <h3>TECHNO HIGH SCHOOL</h3>
-          <h1>COMMITTED TO EXCELLENCE</h1>
-        </div>
+       
       </div>
     </>
   );
