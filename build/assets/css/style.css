@@ -1,0 +1,684 @@
+/* ==========================================================================
+   1. Core Resets & Global Constraints
+   ========================================================================== */
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  overflow-x: hidden; /* Prevents unwanted horizontal layout shifts on mobile */
+}
+
+/* Base list and anchor structural resets over-writing Bootstrap */
+.menu, .dropdown, .imp-links ul, .contact-info ul {
+  list-style: none !important;
+  padding-left: 0 !important;
+  margin: 0 !important;
+}
+
+/* ==========================================================================
+   2. Header & Navigation Component
+   ========================================================================== */
+.wrapper {
+  position: relative;
+  /* url ke andar shuruat me "/" lagane se ye direct public folder ko point karega */
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("/assets/image/Techno-bg.jpg") no-repeat center center;
+  background-size: cover;
+  min-height: 85vh;
+  width: 100%;
+  padding-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 5%;
+  background: transparent;
+  width: 100%;
+  position: relative;
+  z-index: 100;
+}
+
+.logo img {
+  height: clamp(80px, 10vw, 140px); /* Intelligently scales logo based on screen real-estate */
+  width: auto;
+}
+
+#menu-toggle {
+  display: none !important;
+}
+
+.menu-icon {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid #dddddd;
+  border-radius: 8px;
+  width: 45px;
+  height: 40px;
+  cursor: pointer;
+  padding: 6px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  z-index: 110;
+}
+
+.menu-icon span {
+  display: block;
+  width: 22px;
+  height: 3px;
+  background: #555555;
+  margin: 3px 0;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.menu {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.menu li {
+  position: relative;
+}
+
+.menu li a {
+  text-decoration: none;
+  color: #ffffff !important;
+  font-size: 17px;
+  font-weight: 500;
+  display: block;
+  padding: 10px 15px;
+  transition: color 0.25s ease;
+}
+
+.menu li a:hover {
+  color: #30D2BE !important; /* Highlights using your custom palette accent tint */
+}
+
+/* --- Dropdown System --- */
+.dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: rgba(11, 77, 161, 0.96); /* Solid layout foundation backed by var(--bg-blue) */
+  min-width: 210px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  padding: 10px 0;
+  border-radius: 6px;
+  z-index: 1000;
+}
+
+.dropdown li {
+  width: 100%;
+  padding: 0;
+}
+
+.dropdown li a {
+  color: #ffffff !important;
+  padding: 10px 20px;
+  font-size: 15px;
+}
+
+.dropdown li a:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.menu li:hover .dropdown {
+  display: block;
+}
+
+/* --- Hero Center Stage --- */
+.content {
+  margin: auto 0; /* Centers content vertically within the min-height wrapper block */
+  text-align: center;
+  color: #ffffff;
+  padding: 0 20px;
+}
+
+.content h3 {
+  font-size: clamp(1.4rem, 4vw, 2.5rem);
+  font-weight: 500;
+  margin-bottom: 12px;
+  letter-spacing: 1px;
+}
+
+.content h1 {
+  font-size: clamp(2rem, 6vw, 4rem);
+  font-weight: 700;
+  max-width: 900px;
+  margin: 0 auto;
+  line-height: 1.2;
+}
+
+.down i {
+  background-color: teal;
+  border-radius: 50%;
+  padding: 1rem;
+  font-size: 24px;
+  margin-top: 2rem;
+  color: #ffffff;
+  display: inline-block;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.down i:hover {
+  transform: scale(1.2);
+  background-color: #006666;
+}
+
+/* ==========================================================================
+   3. Content Blocks Layout System (.container standard overrides)
+   ========================================================================== */
+.site-main-container {
+  display: flex;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  gap: 30px;
+}
+
+/* Welcome Area Box Model Layout */
+.welcome {
+  padding: 60px 0;
+  width: 100%;
+  background-color: #ffffff;
+}
+
+.welcome .site-main-container {
+  align-items: center;
+}
+
+.left {
+  flex: 1;
+  padding-right: 20px;
+}
+
+.right {
+  flex: 1;
+}
+
+.welcome-content h3 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  margin-bottom: 20px;
+  color: #333333;
+}
+
+.welcome-content p {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #555555;
+  margin-bottom: 15px;
+}
+
+.welcome-content .highlight {
+  font-weight: bold;
+  color: teal;
+}
+
+.welcome-img img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+/* ==========================================================================
+   4. About Us & Mission Cards Section
+   ========================================================================== */
+#about {
+  padding: 80px 0;
+  background-color: #fcfcfc;
+}
+
+#about h1, #facility h1 {
+  text-align: center;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  color: rgba(34, 56, 121, 0.9);
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.cards-grid-container {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 40px auto 0 auto;
+  padding: 0 20px;
+  gap: 25px;
+}
+
+.mission, .vision, .values {
+  border-radius: 12px;
+  background-image: linear-gradient(-225deg, #473B7B 0%, #3584A7 51%, #30D2BE 100%);
+  color: #ffffff;
+  flex: 1;
+  min-height: 380px;
+  text-align: center;
+  padding: 40px 25px;
+  line-height: 1.7;
+  font-size: 1.05rem;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.mission h3, .vision h3, .values h3 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  border-bottom: 2px solid rgba(255,255,255,0.2);
+  padding-bottom: 10px;
+}
+
+/* ==========================================================================
+   5. Facilities & Activities Section
+   ========================================================================== */
+#facility {
+  padding: 80px 0;
+  background-color: #ffffff;
+}
+
+.infra, .resource, .activities {
+  border-radius: 12px;
+  background: linear-gradient(135deg, #dbe9f4 0%, #eaf4fb 100%);
+  color: #333333;
+  flex: 1;
+  padding: 40px 30px;
+  font-size: 1.05rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.infra:hover, .resource:hover, .activities:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.infra h3, .resource h3, .activities h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #004c8c;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.infra ul, .resource ul, .activities ul {
+  padding-left: 15px !important;
+}
+
+.infra li, .resource li, .activities li {
+  margin-bottom: 12px;
+  line-height: 1.6;
+  color: #444444;
+  font-weight: 500;
+  text-align: left;
+}
+
+/* ==========================================================================
+   6. Executive Messages Layout System
+   ========================================================================== */
+:root {
+  --bg-blue: #0B4DA1;
+  --bg-blue-dark: #083a7a;
+  --card-bg: rgba(255,255,255,0.95);
+  --text-main: #0e1a2b;
+  --text-muted: #445269;
+  --accent-1: #2ec5ff;
+  --accent-2: #6ee7ff;
+  --shadow: 0 10px 30px rgba(0,0,0,0.15);
+  --radius: 18px;
+  --maxw: 980px;
+}
+
+#director-section {
+  background: linear-gradient(135deg, var(--bg-blue) 0%, var(--bg-blue-dark) 100%);
+  padding: 60px 20px;
+  margin-top: 4rem;
+  width: 100%;
+}
+
+.director-wrap {
+  max-width: var(--maxw);
+  margin: 0 auto;
+}
+
+.director-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(255,255,255,0.6);
+  padding: 40px 35px;
+  color: var(--text-main);
+  transition: transform 0.25s ease;
+}
+
+.director-card:hover {
+  transform: translateY(-3px);
+}
+
+.accent-bar {
+  height: 5px;
+  width: 80px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+  margin-bottom: 20px;
+}
+
+.dir-title {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+  color: var(--text-main);
+  font-weight: 800;
+}
+
+.dir-quote {
+  position: relative;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--text-muted);
+  padding-left: 15px;
+}
+
+.dir-sign {
+  margin-top: 25px;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.dir-role {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  display: block;
+  margin-top: 4px;
+}
+
+/* Principal Card block */
+.principal-container {
+  max-width: var(--maxw);
+  margin: 4rem auto;
+  padding: 40px 35px;
+  background: linear-gradient(135deg, #e6f0ff, #cce0ff);
+  border-left: 8px solid #ffb400; 
+  border-radius: 12px;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+  color: #002244;
+}
+
+.principal-container h2 {
+  font-size: 1.8rem;
+  color: #003366;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.principal-container p {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  margin-bottom: 15px;
+}
+
+.principal-sign {
+  margin-top: 25px;
+  font-weight: bold;
+  color: #003366;
+}
+
+/* ==========================================================================
+   7. Admissions Form Component
+   ========================================================================== */
+#admission {
+  background-color: #f4f6e8;
+  padding: 40px;
+  max-width: 850px;
+  border: 1px solid #cccccc;
+  border-radius: 8px;
+  margin: 4rem auto;
+}
+
+#admission h5 {
+  font-size: 1.3rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  text-decoration: underline;
+  color: #333333;
+}
+
+#admission p {
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: 30px;
+  color: #555555;
+}
+
+.form {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  gap: 20px 15px;
+  align-items: center;
+  text-align: left;
+}
+
+.form label {
+  font-size: 15px;
+  font-weight: 600;
+  color: #333333;
+}
+
+.form input[type="text"],
+.form input[type="date"],
+.form input[type="number"] {
+  border: none;
+  border-bottom: 2px solid #000000;
+  padding: 6px 4px;
+  width: 100%;
+  background-color: transparent;
+  outline: none;
+  font-size: 15px;
+  transition: border-color 0.3s;
+}
+
+.form input:focus {
+  border-bottom-color: teal;
+}
+
+.checkbox-group {
+  display: flex;
+  gap: 25px;
+}
+
+.checkbox-group label {
+  font-weight: 500;
+  cursor: pointer;
+}
+
+button {
+  background-color: #d9534f;
+  border: none;
+  color: #ffffff;
+  margin-top: 30px;
+  padding: 12px 30px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  width: auto;
+  min-width: 200px;
+  transition: background 0.2s;
+}
+
+button:hover {
+  background-color: #c9302c;
+}
+
+/* ==========================================================================
+   8. Footer Component Area
+   ========================================================================== */
+.footer {
+  background-image: linear-gradient(120deg, #106b70 0%, #02357c 100%);
+  color: #ffffff;
+  padding: 60px 5% 30px 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 40px;
+  margin-top: 4rem;
+  width: 100%;
+}
+
+.footer-img {
+  flex: 1;
+}
+
+.footer-img img {
+  max-width: 180px;
+  height: auto;
+}
+
+.links {
+  flex: 2;
+  display: flex;
+  justify-content: space-around;
+  gap: 40px;
+  margin-top: 0;
+}
+
+.imp-links h4, .contact-info h4 {
+  font-size: 1.25rem;
+  color: #30D2BE;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.footer li, .footer a {
+  color: #e0e0e0 !important;
+  font-size: 0.95rem !important;
+  text-decoration: none;
+  line-height: 1.8;
+}
+
+.footer a:hover {
+  color: #ffffff !important;
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   9. Modern Breakpoints Media Queries (Responsive Mobile Execution)
+   ========================================================================== */
+@media (max-width: 768px) {
+  /* Menu Navigation Override Panel */
+  .menu-icon {
+    display: flex;
+  }
+
+  .menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: #ffffff;
+    flex-direction: column;
+    width: 260px;
+    display: none;
+    padding: 15px 0;
+    border-left: 1px solid #dddddd;
+    border-bottom: 1px solid #dddddd;
+    box-shadow: -4px 4px 12px rgba(0,0,0,0.1);
+    align-items: flex-start;
+    z-index: 999;
+  }
+
+  .menu li {
+    width: 100%;
+  }
+
+  .menu li a {
+    color: #333333 !important;
+    padding: 12px 25px;
+    width: 100%;
+  }
+
+  .menu li a:hover {
+    background-color: #f5f5f5;
+    color: teal !important;
+  }
+
+  #menu-toggle:checked ~ .menu,
+  .menu.open {
+    display: flex;
+  }
+
+  /* Stacking the Dropdown context inline on Mobile */
+  .dropdown {
+    position: static;
+    display: none;
+    background: #f9f9f9;
+    box-shadow: none;
+    width: 100%;
+    padding: 5px 0;
+    border-radius: 0;
+  }
+  
+  .dropdown li a {
+    color: #555555 !important;
+    padding: 10px 40px;
+  }
+
+  .menu li:hover .dropdown {
+    display: block;
+  }
+
+  /* Layout container conversions from columns to stacked rows */
+  .site-main-container, .cards-grid-container {
+    flex-direction: column;
+    gap: 30px;
+    padding: 0 25px;
+  }
+
+  .left, .right, .mission, .vision, .values, .infra, .resource, .activities {
+    width: 100%;
+    flex: none;
+    padding-right: 0;
+  }
+  
+  .mission, .vision, .values {
+    min-height: auto;
+  }
+
+  .welcome-content p {
+    width: 100%;
+  }
+
+  /* Form transformation */
+  .form {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  
+  .form label {
+    margin-top: 10px;
+  }
+
+  /* Footer stack transformation */
+  .footer {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 40px;
+  }
+
+  .links {
+    flex-direction: column;
+    width: 100%;
+    gap: 30px;
+  }
+}
