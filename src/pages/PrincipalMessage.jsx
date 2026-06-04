@@ -81,7 +81,7 @@ const PrincipalMessage = () => {
                   </p>
 
                   <h5 className="fw-bold text-primary mb-1">
-                    Dr. Jane Doe
+                    Abhiraj Singh Rathore
                   </h5>
 
                   <p className="text-muted mb-0">

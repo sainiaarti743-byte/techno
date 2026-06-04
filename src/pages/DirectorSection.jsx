@@ -79,7 +79,7 @@ const DirectorSection = () => {
                   <p className="mb-1 fw-semibold">Best Wishes,</p>
 
                   <h5 className="fw-bold text-success mb-1">
-                    Dr. John Smith
+                      P. D. Kumawat
                   </h5>
 
                   <p className="text-muted mb-0">
