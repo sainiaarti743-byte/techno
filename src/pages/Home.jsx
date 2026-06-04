@@ -306,7 +306,7 @@ const Home = () => {
                   we strive to help every student reach their full potential.
                 </p>
                 <div className="mt-4 pt-2">
-                  <span className="d-block fw-bold text-dark fs-5">Director</span>
+                  <span className="d-block fw-bold text-dark fs-5">P. D. Kumawat (Director)</span>
                   <span className="text-secondary small">Techno School</span>
                 </div>
               </div>
@@ -334,7 +334,7 @@ const Home = () => {
                   Together with parents and the community, we aim to prepare our students not only for academic success but also to be caring citizens who contribute positively to the world.
                 </p>
                 <div className="mt-4 pt-2 fw-bold" style={{ color: '#003366' }}>
-                  <p className="mb-0">Principal</p>
+                  <p className="mb-0">Abhiraj Singh Rathore (Principal)</p>
                   <span className="text-secondary small fw-normal">Techno School</span>
                 </div>
               </div>

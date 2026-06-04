@@ -22,7 +22,7 @@ const PrincipalMessage = () => {
                 />
 
                 <h4 className="fw-bold mt-4 mb-1 text-dark">
-                  Dr. Jane Doe
+                 Abhiraj Singh Rathore
                 </h4>
 
                 <p className="text-muted mb-2">

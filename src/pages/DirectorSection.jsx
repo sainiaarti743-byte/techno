@@ -22,7 +22,7 @@ const DirectorSection = () => {
                 />
 
                 <h4 className="fw-bold mt-4 mb-1 text-dark">
-                  Dr. John Smith
+                  P. D. Kumawat 
                 </h4>
 
                 <p className="text-muted mb-2">
