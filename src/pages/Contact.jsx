@@ -2,7 +2,9 @@ import React from "react";
 
 const Contact = () => {
   return (
-   
+   <>
+  
+    <div className="p-3"></div>
     <div className="container py-5">
      
       <h1 className="text-center mb-4">Contact Us</h1>
@@ -32,6 +34,8 @@ const Contact = () => {
         <button type="submit" className="btn btn-primary w-100 py-2">Send Message</button>
       </form>
     </div>
+
+     </>
   );
 };
 

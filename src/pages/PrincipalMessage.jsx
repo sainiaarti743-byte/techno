@@ -2,51 +2,98 @@ import React from "react";
 
 const PrincipalMessage = () => {
   return (
-    <div className="container py-5" id="principal-message">
-    
-      <div className="card border-0 shadow-sm overflow-hidden bg-white mx-auto" style={{ maxWidth: "1000px" }}>
-        <div className="row g-0 align-items-center">
-    
-          <div className="col-md-4 bg-light text-center py-5 py-md-0 d-flex flex-column align-items-center justify-content-center border-end" style={{ minHeight: "350px" }}>
-       
-            <div className="bg-primary-subtle text-primary rounded-circle d-flex align-items-center justify-content-center mb-3 shadow-sm" style={{ width: "120px", height: "120px" }}>
-              <span className="fs-1">👩‍💼</span>
-            </div>
-            <h5 className="fw-bold text-dark mb-1">Dr. Jane Doe</h5>
-            <p className="text-muted small uppercase tracking-wider mb-0">Principal, Techno High School</p>
-            <span className="badge bg-success-subtle text-success px-2 py-1 rounded mt-2 small">Ph.D. in Education</span>
-          </div>
+    <section id="principal-message" className="py-5 bg-white">
+      <div className="container">
+        <div
+          className="card border-0 shadow-lg overflow-hidden mx-auto"
+          style={{ maxWidth: "1100px", borderRadius: "20px" }}
+        >
+          <div className="row g-0 align-items-center">
+            {/* Principal Image */}
+            <div className="col-lg-4 col-md-5">
+              <div
+                className="h-100 d-flex flex-column align-items-center justify-content-center text-center p-4 bg-light"
+                style={{ minHeight: "500px" }}
+              >
+                <img
+                  src="/assets/image/principle.jpeg"
+                  alt="Principal"
+                  className="img-fluid rounded-circle shadow principal-image"
+                />
 
-        
-          <div className="col-md-8">
-            <div className="card-body p-4 p-lg-5">
-             
-              <div className="text-primary-subtle display-1 lh-1 mb-0 select-none" style={{ fontFamily: "Georgia, serif", marginTop: "-20px" }}>
-                “
-              </div>
-              
-              <h2 className="fw-bold text-dark mb-4 mt-n3">Welcome to our Academic Family</h2>
-              
-              <p className="card-text text-secondary lh-lg mb-4">
-                "At Techno High School, we firmly believe that education is not just about learning facts, but rather training the mind to think critically. Our mission is to nurture the leaders, innovators, and empathetic citizens of tomorrow."
-              </p>
-              
-              <p className="card-text text-secondary lh-lg mb-4">
-                Our exceptionally dedicated faculty, combined with state-of-the-art digital infrastructure, ensures that every single student receives a holistic education. We focus equally on academic excellence, co-curricular talents, and strong moral values, preparing them thoroughly for the global challenges ahead.
-              </p>
+                <h4 className="fw-bold mt-4 mb-1 text-dark">
+                  Dr. Jane Doe
+                </h4>
 
-          
-              <div className="mt-4 pt-3 border-top border-light">
-                <p className="fst-italic text-dark mb-0 fw-semibold">Warm Regards,</p>
-                <p className="fw-bold text-primary mb-0 fs-5 mt-1">Dr. Jane Doe</p>
-                <p className="text-muted small mb-0">M.A., B.Ed., Ph.D.</p>
+                <p className="text-muted mb-2">
+                  Principal, Techno High School
+                </p>
+
+                <span className="badge bg-primary px-3 py-2">
+                  M.A., B.Ed., Ph.D.
+                </span>
               </div>
             </div>
-          </div>
 
+            {/* Message Content */}
+            <div className="col-lg-8 col-md-7">
+              <div className="card-body p-4 p-lg-5">
+                <div
+                  className="display-1 text-primary opacity-25 fw-bold"
+                  style={{
+                    fontFamily: "Georgia, serif",
+                    lineHeight: "0.8",
+                  }}
+                >
+                  “
+                </div>
+
+                <h2 className="fw-bold mb-4 text-dark">
+                  Principal's Message
+                </h2>
+
+                <p className="text-secondary lh-lg mb-4">
+                  Welcome to Techno High School. We believe that education is
+                  the foundation upon which dreams are built and futures are
+                  shaped. Our goal is to provide every student with an
+                  environment that encourages curiosity, creativity, confidence,
+                  and lifelong learning.
+                </p>
+
+                <p className="text-secondary lh-lg mb-4">
+                  Through academic excellence, innovative teaching methods, and
+                  a strong focus on values, we prepare students to meet the
+                  challenges of the modern world. We encourage our learners to
+                  think critically, communicate effectively, and develop the
+                  leadership qualities necessary for success.
+                </p>
+
+                <p className="text-secondary lh-lg mb-4">
+                  At Techno High School, we are committed to nurturing young
+                  minds and helping every child achieve their fullest potential
+                  in academics, sports, cultural activities, and personal
+                  development.
+                </p>
+
+                <div className="border-top pt-4 mt-4">
+                  <p className="mb-1 fw-semibold">
+                    Warm Regards,
+                  </p>
+
+                  <h5 className="fw-bold text-primary mb-1">
+                    Dr. Jane Doe
+                  </h5>
+
+                  <p className="text-muted mb-0">
+                    Principal, Techno High School
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

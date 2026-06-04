@@ -2,51 +2,96 @@ import React from "react";
 
 const DirectorSection = () => {
   return (
-    <div className="container py-5" id="director-section">
-   
-      <div className="card border-0 shadow-sm overflow-hidden bg-white mx-auto" style={{ maxWidth: "1000px" }}>
-        <div className="row g-0 align-items-center">
-       
-          <div className="col-md-8 order-2 order-md-1">
-            <div className="card-body p-4 p-lg-5">
-             
-              <div className="text-success-subtle display-1 lh-1 mb-0 select-none" style={{ fontFamily: "Georgia, serif", marginTop: "-20px" }}>
-                “
-              </div>
-              
-              <h2 className="fw-bold text-dark mb-4 mt-n3">Shaping the Future of Education</h2>
-              
-              <p className="card-text text-secondary lh-lg mb-4">
-                "Welcome to Techno High School! In today's rapidly changing world, education must go beyond conventional learning. Our core mission is to establish a technology-driven, progressive ecosystem that fosters absolute academic excellence and unhindered personal growth."
-              </p>
-              
-              <p className="card-text text-secondary lh-lg mb-4">
-                We are strategic in our approach—investing heavily in smart infrastructure, global teaching methodologies, and skill-based research. By equipping our students with 21st-century skills like critical thinking, coding, and collaborative leadership, we ensure they don't just adapt to the future, but actively shape it.
-              </p>
+    <section id="director-section" className="py-5 bg-light">
+      <div className="container">
+        <div
+          className="card border-0 shadow-lg overflow-hidden mx-auto"
+          style={{ maxWidth: "1100px", borderRadius: "20px" }}
+        >
+          <div className="row g-0 align-items-center">
+            {/* Director Image */}
+            <div className="col-lg-4 col-md-5">
+              <div
+                className="h-100 d-flex flex-column align-items-center justify-content-center text-center p-4 bg-white"
+                style={{ minHeight: "500px" }}
+              >
+                <img
+                  src="/assets/image/dircterimg.jpeg"
+                  alt="Director"
+                  className="img-fluid rounded-circle shadow director-image"
+                />
 
-           
-              <div className="mt-4 pt-3 border-top border-light">
-                <p className="fst-italic text-dark mb-0 fw-semibold">Best Wishes,</p>
-                <p className="fw-bold text-success mb-0 fs-5 mt-1">Dr. John Smith</p>
-                <p className="text-muted small mb-0">Managing Director, Techno Group</p>
+                <h4 className="fw-bold mt-4 mb-1 text-dark">
+                  Dr. John Smith
+                </h4>
+
+                <p className="text-muted mb-2">
+                  Director, Techno High School
+                </p>
+
+                <span className="badge bg-success px-3 py-2">
+                  MBA, Ph.D. in Leadership
+                </span>
+              </div>
+            </div>
+
+            {/* Director Message */}
+            <div className="col-lg-8 col-md-7">
+              <div className="card-body p-4 p-lg-5">
+                <div
+                  className="display-1 text-success opacity-25 fw-bold"
+                  style={{
+                    fontFamily: "Georgia, serif",
+                    lineHeight: "0.8",
+                  }}
+                >
+                  “
+                </div>
+
+                <h2 className="fw-bold mb-4 text-dark">
+                  Director's Message
+                </h2>
+
+                <p className="text-secondary lh-lg mb-4">
+                  Welcome to Techno High School. Education is not merely about
+                  acquiring knowledge; it is about building character,
+                  developing confidence, and preparing students to face the
+                  challenges of an ever-evolving world.
+                </p>
+
+                <p className="text-secondary lh-lg mb-4">
+                  At Techno High School, we are committed to providing a
+                  nurturing environment where students can explore their
+                  potential, think creatively, and grow into responsible global
+                  citizens. Through innovative teaching methods, modern
+                  technology, and a strong value system, we strive to create a
+                  foundation for lifelong success.
+                </p>
+
+                <p className="text-secondary lh-lg mb-4">
+                  Our dedicated faculty, state-of-the-art facilities, and focus
+                  on holistic development ensure that every child receives the
+                  guidance and opportunities needed to excel academically,
+                  socially, and personally.
+                </p>
+
+                <div className="border-top pt-4 mt-4">
+                  <p className="mb-1 fw-semibold">Best Wishes,</p>
+
+                  <h5 className="fw-bold text-success mb-1">
+                    Dr. John Smith
+                  </h5>
+
+                  <p className="text-muted mb-0">
+                    Director, Techno High School
+                  </p>
+                </div>
               </div>
             </div>
           </div>
-
-     
-          <div className="col-md-4 order-1 order-md-2 bg-light text-center py-5 py-md-0 d-flex flex-column align-items-center justify-content-center border-start" style={{ minHeight: "350px" }}>
-         
-            <div className="bg-success-subtle text-success rounded-circle d-flex align-items-center justify-content-center mb-3 shadow-sm" style={{ width: "120px", height: "120px" }}>
-              <span className="fs-1">👨‍💼</span>
-            </div>
-            <h5 className="fw-bold text-dark mb-1">Dr. John Smith</h5>
-            <p className="text-muted small uppercase tracking-wider mb-0">Director, Techno High School</p>
-            <span className="badge bg-primary-subtle text-primary px-2 py-1 rounded mt-2 small">MBA, Ph.D. in Leadership</span>
-          </div>
-
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

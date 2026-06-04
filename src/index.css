@@ -318,3 +318,76 @@ code {
 #facility {
   background: #f8fafc;
 }
+
+
+
+#director-section .director-image {
+  width: 220px;
+  height: 220px;
+  object-fit: cover;
+  border: 6px solid #ffffff;
+}
+
+#director-section .card {
+  transition: all 0.3s ease;
+}
+
+#director-section .card:hover {
+  transform: translateY(-5px);
+}
+
+#director-section h2 {
+  font-size: 2.2rem;
+}
+
+#director-section p {
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+@media (max-width: 768px) {
+  #director-section .director-image {
+    width: 180px;
+    height: 180px;
+  }
+
+  #director-section h2 {
+    font-size: 1.8rem;
+  }
+}
+
+
+#principal-message .principal-image {
+  width: 220px;
+  height: 220px;
+  object-fit: cover;
+  border: 6px solid #fff;
+}
+
+#principal-message .card {
+  transition: all 0.3s ease;
+}
+
+#principal-message .card:hover {
+  transform: translateY(-5px);
+}
+
+#principal-message h2 {
+  font-size: 2.2rem;
+}
+
+#principal-message p {
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+@media (max-width: 768px) {
+  #principal-message .principal-image {
+    width: 180px;
+    height: 180px;
+  }
+
+  #principal-message h2 {
+    font-size: 1.8rem;
+  }
+}

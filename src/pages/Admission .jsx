@@ -3,10 +3,12 @@ import React from "react";
 const Admission = () => {
   return (
    <>
-   
-   <div className="container">
+   <div className="mt-5 p-2">
+ </div>
+  
+   <div className="container mt-5">
 
-   <div id="admission">
+   <div id="admission" >
     <h5>APPLICATION FORM FOR ADMISSION</h5>
     <p>Please uses this form to apply for your child’s admission to our school. We need complete & accurate
        information about the student. So make sure you fill out all fields.</p>
