@@ -1,7 +1,102 @@
-import React from 'react';
+import React,{useEffect,useState} from 'react';
 import Banner from './Banner';
 
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination, Autoplay } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/pagination";
+const BASE_URL = "https://technoschool.co.in/admin";
+const Image_BASE_URL = "https://technoschool.co.in/admin/public";
+
 const Home = () => {
+
+  const [gallery, setGallery] = useState([]);
+   const [events, setEvents] = useState([]);
+     const [notices, setNotices] = useState([]);
+       const [pages, setPages] = useState([]);
+
+  useEffect(() => {
+    fetch(`${BASE_URL}/api/gallery`)
+      .then((res) => res.json())
+      .then((data) => setGallery(data))
+      .catch((err) => console.error("Gallery fetch error:", err));
+  }, []);
+
+  
+
+  useEffect(() => {
+    fetch(`${BASE_URL}/api/events`)
+      .then((res) => res.json())
+      .then((data) => setEvents(data))
+      .catch((err) => console.error("Events fetch error:", err));
+  }, []);
+  useEffect(() => {
+    fetch(`${BASE_URL}/api/notices`)
+      .then((res) => res.json())
+      .then((data) => {
+        const sorted = [...data].sort((a, b) => b.is_pinned - a.is_pinned);
+        setNotices(sorted);
+      })
+      .catch((err) => console.error("Notices fetch error:", err));
+  }, []);
+
+  useEffect(() => {
+    fetch(`${BASE_URL}/api/pages`)
+      .then((res) => res.json())
+      .then((data) => setPages(data))
+      .catch((err) => console.error("Pages fetch error:", err));
+  }, []);
+
+  const renderContent = (content) => {
+    return content
+      .split("\n")
+      .filter((line) => line.trim() !== "")
+      .map((para, i) => (
+        <p key={i} className="fs-5 lh-base text-dark text-start">
+          {para.trim()}
+        </p>
+      ));
+  };
+
+  const isDirector = (page) =>
+    page.title.toLowerCase().includes("director");
+
+
+
+ const FacilityCard = ({ event }) => (
+    <div
+      className="facility-card rounded-4 h-100 shadow border overflow-hidden"
+      style={{
+        background: "linear-gradient(135deg, #dbe9f4 0%, #eaf4fb 100%)",
+      }}
+    >
+      <img
+        src={`${Image_BASE_URL}/${event.image}`}
+        alt={event.title}
+        className="img-fluid w-100"
+        style={{ height: "250px", objectFit: "cover" }}
+      />
+      <div className="p-4">
+        <h3 className="fw-bold text-center mb-4" style={{ color: "#004c8c" }}>
+          {event.title}
+        </h3>
+        <ul className="text-start ps-3 text-secondary">
+          {event.description
+            .split("\n")
+            .filter((line) => line.trim() !== "")
+            .map((line, index) => (
+              <li key={index} className="mb-2">
+                {line.trim()}
+              </li>
+            ))}
+        </ul>
+      </div>
+    </div>
+  );
+
+
+
+
   return (
     <>
 
@@ -38,6 +133,93 @@ const Home = () => {
           </div>
         </div>
       </section>
+
+  <section id="notices" className="py-5" style={{ background: "#f0f6ff" }}>
+      <div className="container">
+        {/* <h2
+          className="text-center display-5 fw-bold mb-5"
+          style={{ color: "rgba(34, 56, 121, 0.9)" }}
+        >
+          📋 Notice Board
+        </h2> */}
+
+        <Swiper
+          modules={[Pagination, Autoplay]}
+          pagination={{ clickable: true }}
+          autoplay={{ delay: 3000 }}
+          loop={notices.length > 1}
+          spaceBetween={20}
+          breakpoints={{
+            0: { slidesPerView: 1 },
+            768: { slidesPerView: 2 },
+            1024: { slidesPerView: 3 },
+          }}
+          className="pb-5"
+        >
+          {notices.map((notice) => (
+            <SwiperSlide key={notice.id}>
+              <div
+                className="card border-0 rounded-4 shadow h-100"
+                style={{
+                  background: notice.is_pinned ? "#fffbea" : "white",
+                  minHeight: "200px",
+                }}
+              >
+                {/* Card Header */}
+                <div
+                  className="px-4 py-2 rounded-top-4 d-flex justify-content-between align-items-center"
+                  style={{ background: "rgba(34, 56, 121, 0.9)" }}
+                >
+                  <span className="text-white fw-semibold" style={{ fontSize: "13px" }}>
+                    📌 Notice
+                  </span>
+                  {notice.is_pinned === 1 && (
+                    <span className="badge" style={{ background: "#ff6b35", fontSize: "10px" }}>
+                      Pinned
+                    </span>
+                  )}
+                  {new Date(notice.publish_date) >= new Date(Date.now() - 7 * 24 * 60 * 60 * 1000) && (
+                    <span className="badge" style={{ background: "#28a745", fontSize: "10px" }}>
+                      NEW
+                    </span>
+                  )}
+                </div>
+
+                {/* Card Body */}
+                <div className="p-4">
+                  {/* Date */}
+                  <div className="d-flex align-items-center gap-2 mb-3">
+                    <div
+                      className="text-center rounded-3 p-2"
+                      style={{ background: "rgba(34, 56, 121, 0.1)", minWidth: "55px" }}
+                    >
+                      <div className="fw-bold" style={{ color: "rgba(34, 56, 121, 0.9)", fontSize: "18px" }}>
+                        {new Date(notice.publish_date).getDate()}
+                      </div>
+                      <div className="text-uppercase" style={{ color: "rgba(34, 56, 121, 0.7)", fontSize: "11px" }}>
+                        {new Date(notice.publish_date).toLocaleString("en-IN", { month: "short" })}
+                      </div>
+                      <div style={{ color: "#888", fontSize: "11px" }}>
+                        {new Date(notice.publish_date).getFullYear()}
+                      </div>
+                    </div>
+
+                    <h6 className="fw-bold mb-0" style={{ color: "#222" }}>
+                      {notice.title}
+                    </h6>
+                  </div>
+
+                  {/* Description */}
+                  <p className="text-muted mb-0" style={{ fontSize: "14px" }}>
+                    {notice.description}
+                  </p>
+                </div>
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+    </section>
       {/* Welcome Section */}
       <div className="welcome py-5 bg-white">
         <div className="container">
@@ -129,277 +311,161 @@ const Home = () => {
       </section>
 
       {/* Facilities Section */}
-      <section id="facility" className="py-5 bg-white">
-        <div className="container">
-          <h1
-            className="text-center display-4 fw-bold mb-5"
-            style={{ color: "rgba(34, 56, 121, 0.9)" }}
-          >
-            Our Facilities
-          </h1>
+         <section id="facility" className="py-5 bg-white">
+      <div className="container">
+        <h1
+          className="text-center display-4 fw-bold mb-5"
+          style={{ color: "rgba(34, 56, 121, 0.9)" }}
+        >
+          Our Facilities
+        </h1>
 
+        {events.length <= 3 ? (
+          // 3 ya kam hain to normal grid
           <div className="row g-4">
-
-            {/* Infrastructure */}
-            <div className="col-12 col-md-4">
-              <div
-                className="facility-card rounded-4 h-100 shadow border overflow-hidden"
-                style={{
-                  background:
-                    "linear-gradient(135deg, #dbe9f4 0%, #eaf4fb 100%)",
-                }}
-              >
-                <img
-                  src="/assets/image/school15.jpeg"
-                  alt="Infrastructure"
-                  className="img-fluid w-100"
-                  style={{
-                    height: "250px",
-                    objectFit: "cover",
-                  }}
-                />
-
-                <div className="p-4">
-                  <h3
-                    className="fw-bold text-center mb-4"
-                    style={{ color: "#004c8c" }}
-                  >
-                    Infrastructure
-                  </h3>
-
-                  <ul className="text-start ps-3 text-secondary">
-                    <li className="mb-2">
-                      Well-equipped classrooms, libraries, laboratories, and sports
-                      facilities.
-                    </li>
-                    <li className="mb-2">
-                      Modern computer labs and smart learning tools.
-                    </li>
-                    <li className="mb-2">
-                      Spacious playgrounds for physical activities and sports.
-                    </li>
-                    <li className="mb-2">
-                      Safe and comfortable spaces for students.
-                    </li>
-                    <li className="mb-2">
-                      Environment that encourages academic and extracurricular growth.
-                    </li>
-                  </ul>
-                </div>
+            {events.map((event) => (
+              <div className="col-12 col-md-4" key={event.id}>
+                <FacilityCard event={event} />
               </div>
-            </div>
-
-            {/* Resources */}
-            <div className="col-12 col-md-4">
-              <div
-                className="facility-card rounded-4 h-100 shadow border overflow-hidden"
-                style={{
-                  background:
-                    "linear-gradient(135deg, #dbe9f4 0%, #eaf4fb 100%)",
-                }}
-              >
-                <img
-                  src="/assets/image/bannerimg3.jpeg"
-                  alt="Resources"
-                  className="img-fluid w-100"
-                  style={{
-                    height: "250px",
-                    objectFit: "cover",
-                  }}
-                />
-
-                <div className="p-4">
-                  <h3
-                    className="fw-bold text-center mb-4"
-                    style={{ color: "#004c8c" }}
-                  >
-                    Resources
-                  </h3>
-
-                  <ul className="text-start ps-3 text-secondary">
-                    <li className="mb-2">
-                      Access to textbooks, online resources, and educational
-                      technology.
-                    </li>
-                    <li className="mb-2">
-                      Well-stocked libraries with academic materials.
-                    </li>
-                    <li className="mb-2">
-                      Digital content and e-learning platforms.
-                    </li>
-                    <li className="mb-2">
-                      Modern learning aids for interactive education.
-                    </li>
-                    <li className="mb-2">
-                      Support from qualified teachers and mentors.
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            {/* Sports & Arts */}
-            <div className="col-12 col-md-4">
-              <div
-                className="facility-card rounded-4 h-100 shadow border overflow-hidden"
-                style={{
-                  background:
-                    "linear-gradient(135deg, #dbe9f4 0%, #eaf4fb 100%)",
-                }}
-              >
-                <img
-                  src="/assets/image/school7.jpeg"
-                  alt="Sports and Arts"
-                  className="img-fluid w-100"
-                  style={{
-                    height: "250px",
-                    objectFit: "cover",
-                  }}
-                />
-
-                <div className="p-4">
-                  <h3
-                    className="fw-bold text-center mb-4"
-                    style={{ color: "#004c8c" }}
-                  >
-                    Sports & Arts
-                  </h3>
-
-                  <ul className="text-start ps-3 text-secondary">
-                    <li className="mb-2">
-                      Participation in sports, music, dance, and creative activities.
-                    </li>
-                    <li className="mb-2">
-                      Platforms to foster creativity and self-expression.
-                    </li>
-                    <li className="mb-2">
-                      Encouragement for competitions and cultural programs.
-                    </li>
-                    <li className="mb-2">
-                      Community events that build confidence.
-                    </li>
-                    <li className="mb-2">
-                      Activities promoting teamwork and leadership skills.
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
+            ))}
           </div>
-        </div>
-      </section>
+        ) : (
+          // 3 se zyada hain to Swiper slider
+          <Swiper
+            modules={[Pagination, Autoplay]}
+            pagination={{ clickable: true }}
+            autoplay={{ delay: 3000 }}
+            loop={true}
+            spaceBetween={20}
+            breakpoints={{
+              0: { slidesPerView: 1 },
+              768: { slidesPerView: 2 },
+              1024: { slidesPerView: 3 },
+            }}
+            className="pb-5"
+          >
+            {events.map((event) => (
+              <SwiperSlide key={event.id}>
+                <FacilityCard event={event} />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        )}
+      </div>
+    </section>
 
       {/* Director's Message */}
-      <section id="director-section" className="py-5"
-        style={{ background: 'linear-gradient(135deg, #0B4DA1 0%, #083a7a 100%)' }}>
-        <div className="container my-3">
-          <div className="row justify-content-center">
-            <div className="col-12 col-lg-10">
-              <div className="bg-white p-4 p-md-5 rounded-4 shadow border border-light-subtle">
-                <div className="mb-3" style={{ height: '5px', width: '80px', borderRadius: '999px', background: 'linear-gradient(90deg, #2ec5ff, #6ee7ff)' }}></div>
-                <h2 className="display-6 fw-bold text-dark mb-4">Director’s Message</h2>
-                <p className="fs-5 text-muted lh-base fst-italic position-relative ps-3 border-start border-4 border-info">
-                  Welcome to <strong>Techno School</strong>, where we believe education is the foundation for a bright future.
-                  Our mission is to nurture young minds with knowledge, values, and skills that prepare them for life’s challenges.
-                  With a dedicated team of teachers, modern facilities, and a focus on both academics and character building,
-                  we strive to help every student reach their full potential.
-                </p>
-                <div className="mt-4 pt-2">
-                  <span className="d-block fw-bold text-dark fs-5">P. D. Kumawat (Director)</span>
-                  <span className="text-secondary small">Techno School</span>
+      {pages.map((page) =>
+        isDirector(page) ? (
+          // Director Design
+          <section
+            key={page.id}
+            id="director-section"
+            className="py-5"
+            style={{
+              background: "linear-gradient(135deg, #0B4DA1 0%, #083a7a 100%)",
+            }}
+          >
+            <div className="container my-3">
+              <div className="row justify-content-center">
+                <div className="col-12 col-lg-10">
+                  <div className="bg-white p-4 p-md-5 rounded-4 shadow border border-light-subtle">
+                    <div
+                      className="mb-3"
+                      style={{
+                        height: "5px",
+                        width: "80px",
+                        borderRadius: "999px",
+                        background: "linear-gradient(90deg, #2ec5ff, #6ee7ff)",
+                      }}
+                    ></div>
+                    <h2 className="display-6 fw-bold text-dark mb-4">
+                      {page.title}
+                    </h2>
+                    <p className="fs-5 text-muted lh-base fst-italic position-relative ps-3 border-start border-4 border-info">
+                      {page.content}
+                    </p>
+                    <div className="mt-4 pt-2">
+                      <span className="d-block fw-bold text-dark fs-5">
+                        {page.slug}
+                      </span>
+                      <span className="text-secondary small">Techno School</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Principal's Message */}
-      <section id="principal-message" className="py-5 bg-light">
-        <div className="container">
-          <div className="row justify-content-center">
-            <div className="col-12 col-lg-10">
-              <div className="p-4 p-md-5 rounded-3 shadow-sm"
-                style={{ background: 'linear-gradient(135deg, #e6f0ff, #cce0ff)', borderLeft: '8px solid #ffb400' }}>
-                <h2 className="fw-bold mb-4" style={{ color: '#003366' }}>Principal’s Message</h2>
-                <p className="fs-5 lh-base text-dark text-start">
-                  It is my pleasure to welcome you to <strong style={{ color: '#ff8c00' }}>Techno School</strong>, a place where learning is an exciting journey and every child is valued.
-                  We believe that education goes beyond books—it is about shaping confident, compassionate, and responsible individuals.
-                </p>
-                <p className="fs-5 lh-base text-dark text-start">
-                  Our team works tirelessly to create a safe, supportive, and inspiring environment where students can explore their talents, think critically, and strive for excellence.
-                </p>
-                <p className="fs-5 lh-base text-dark text-start">
-                  Together with parents and the community, we aim to prepare our students not only for academic success but also to be caring citizens who contribute positively to the world.
-                </p>
-                <div className="mt-4 pt-2 fw-bold" style={{ color: '#003366' }}>
-                  <p className="mb-0">Abhiraj Singh Rathore (Principal)</p>
-                  <span className="text-secondary small fw-normal">Techno School</span>
+          </section>
+        ) : (
+          // Principal / Others Design
+          <section
+            key={page.id}
+            id="principal-message"
+            className="py-5 bg-light"
+          >
+            <div className="container">
+              <div className="row justify-content-center">
+                <div className="col-12 col-lg-10">
+                  <div
+                    className="p-4 p-md-5 rounded-3 shadow-sm"
+                    style={{
+                      background:
+                        "linear-gradient(135deg, #e6f0ff, #cce0ff)",
+                      borderLeft: "8px solid #ffb400",
+                    }}
+                  >
+                    <h2 className="fw-bold mb-4" style={{ color: "#003366" }}>
+                      {page.title}
+                    </h2>
+                    {renderContent(page.content)}
+                    <div
+                      className="mt-4 pt-2 fw-bold"
+                      style={{ color: "#003366" }}
+                    >
+                      <p className="mb-0">{page.slug}</p>
+                      <span className="text-secondary small fw-normal">
+                        Techno School
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
+          </section>
+        )
+      )}
 
 
       
 {/* School Photo Gallery Section */}
-<section id="gallery" className="py-5 bg-white">
-  <div className="container">
-    <h2 className="text-center display-5 fw-bold mb-5" style={{ color: "rgba(34, 56, 121, 0.9)" }}>
-      Our Campus Gallery
-    </h2>
-    
-    <div className="row g-4">
-      {/* Image 1: Main Building / Campus */}
-      <div className="col-12 col-md-4">
-        <div className="position-relative overflow-hidden rounded-3 shadow-sm gallery-hover">
-          <img 
-            src="assets/image/bannerimg1.jpeg" 
-            alt="School Campus" 
-            className="img-fluid w-100" 
-            style={{ height: '250px', objectFit: 'cover' }}
-          />
-          <div className="p-2 text-center bg-light fw-semibold text-dark border-top">
-            Beautiful School Campus
-          </div>
-        </div>
-      </div>
+    <section id="gallery" className="py-5 bg-white">
+      <div className="container">
+        <h2
+          className="text-center display-5 fw-bold mb-5"
+          style={{ color: "rgba(34, 56, 121, 0.9)" }}
+        >
+          Our Campus Gallery
+        </h2>
 
-      {/* Image 2: Computer / Smart Lab */}
-      <div className="col-12 col-md-4">
-        <div className="position-relative overflow-hidden rounded-3 shadow-sm gallery-hover">
-          <img 
-            src="assets/image/bannerimg3.jpeg" 
-            alt="Computer Lab" 
-            className="img-fluid w-100" 
-            style={{ height: '250px', objectFit: 'cover' }}
-          />
-          <div className="p-2 text-center bg-light fw-semibold text-dark border-top">
-            Modern Tech & Science Lab
-          </div>
+        <div className="row g-4">
+          {gallery.map((item) => (
+            <div className="col-12 col-md-4" key={item.id}>
+              <div className="position-relative overflow-hidden rounded-3 shadow-sm gallery-hover">
+                <img
+                  src={`${Image_BASE_URL}/${item.image_path}`}
+                  alt={item.category}
+                  className="img-fluid w-100"
+                  style={{ height: "250px", objectFit: "cover" }}
+                />
+                <div className="p-2 text-center bg-light fw-semibold text-dark border-top">
+                  {item.category}
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
-
-      {/* Image 3: Classroom / Activities */}
-      <div className="col-12 col-md-4">
-        <div className="position-relative overflow-hidden rounded-3 shadow-sm gallery-hover">
-          <img 
-            src="assets/image/bannerimg4.jpeg" 
-            alt="Smart Classroom" 
-            className="img-fluid w-100" 
-            style={{ height: '250px', objectFit: 'cover' }}
-          />
-          <div className="p-2 text-center bg-light fw-semibold text-dark border-top">
-            Interactive Smart Classrooms
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
 {/* Testimonials */}
 <section className="py-5 bg-light">

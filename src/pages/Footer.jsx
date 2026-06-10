@@ -25,16 +25,16 @@ const Footer = () => {
                         <h4 className="h5 fw-bold mb-3" style={{ color: '#30D2BE' }}>Important Links</h4>
                         <ul className="list-unstyled p-0 m-0">
                             <li className="mb-2">
-                                <a href="#home" className="text-light-emphasis text-decoration-none link-light">Home</a>
+                                <a href="/" className="text-light-emphasis text-decoration-none link-light">Home</a>
                             </li>
                             <li className="mb-2">
-                                <a href="#about" className="text-light-emphasis text-decoration-none link-light">About Us</a>
+                                <a href="/about" className="text-light-emphasis text-decoration-none link-light">About Us</a>
                             </li>
                             <li className="mb-2">
-                                <a href="#facility" className="text-light-emphasis text-decoration-none link-light">Facilities</a>
+                                <a href="/facility" className="text-light-emphasis text-decoration-none link-light">Facilities</a>
                             </li>
                             <li className="mb-2">
-                                <a href="admission.html" className="text-light-emphasis text-decoration-none link-light">Admission</a>
+                                <a href="/admission" className="text-light-emphasis text-decoration-none link-light">Admission</a>
                             </li>
                         </ul>
                     </div>
